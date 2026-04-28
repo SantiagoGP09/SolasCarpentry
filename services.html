@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services – Sola's Carpentry | Richmond, CA</title>
+<meta name="description" content="Professional carpentry and remodeling services in Richmond and the Bay Area. Custom cabinets, home remodeling, hardwood floors, doors, drywall, and commercial projects.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --roble:    #8B5E3C;
+    --caramelo: #C4874A;
+    --arena:    #F2E0C8;
+    --marfil:   #FAF6F0;
+    --carbon:   #2C2013;
+    --musgo:    #6B7355;
+    --crema:    #EDE0CC;
+    --heading:  'Playfair Display', Georgia, serif;
+    --body:     'Lato', sans-serif;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; font-size: 112.5%; }
+  body { font-family: var(--body); background: var(--marfil); color: var(--carbon); overflow-x: hidden; }
+
+  /* ══ NAV ══ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 72px;
+    background: rgba(44,32,19,0.97); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(196,135,74,0.2);
+  }
+  .nav-logo { font-family: var(--heading); font-size: 22px; font-weight: 700; color: var(--arena); text-decoration: none; letter-spacing: .5px; }
+  .nav-logo span { color: var(--caramelo); }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links > li { position: relative; }
+  .nav-links > li > a {
+    font-family: var(--body); font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--crema); text-decoration: none; transition: color .2s;
+    display: flex; align-items: center; gap: 5px; padding: 8px 0;
+  }
+  .nav-links > li > a:hover,
+  .nav-links > li > a.active { color: var(--caramelo); }
+
+  /* ── Services dropdown trigger arrow ── */
+  .nav-has-dropdown > a::after {
+    content: '';
+    display: inline-block;
+    width: 6px; height: 6px;
+    border-right: 1.5px solid currentColor;
+    border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translateY(-2px);
+    transition: transform .25s;
+  }
+  .nav-has-dropdown:hover > a::after { transform: rotate(-135deg) translateY(-2px); }
+
+  /* ── Dropdown panel ── */
+  .nav-dropdown {
+    position: absolute; top: 100%; left: 50%;
+    transform: translateX(-50%);
+    padding-top: 12px; /* invisible bridge — keeps hover active in gap */
+    opacity: 0; pointer-events: none;
+    transition: opacity .22s, visibility .22s;
+    visibility: hidden;
+  }
+  .nav-dropdown-inner {
+    background: rgba(28,19,10,0.98); backdrop-filter: blur(12px);
+    border: 1px solid rgba(196,135,74,0.15);
+    border-radius: 6px; padding: 8px 0; min-width: 210px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+    position: relative;
+  }
+  /* arrow notch */
+  .nav-dropdown-inner::before {
+    content: '';
+    position: absolute; top: -5px; left: 50%; transform: translateX(-50%) rotate(45deg);
+    width: 9px; height: 9px;
+    background: rgba(28,19,10,0.98);
+    border-left: 1px solid rgba(196,135,74,0.15);
+    border-top: 1px solid rgba(196,135,74,0.15);
+  }
+  .nav-has-dropdown:hover .nav-dropdown {
+    opacity: 1; pointer-events: auto; visibility: visible;
+  }
+  .nav-dropdown a {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 20px;
+    font-family: var(--body); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(237,224,204,0.65); text-decoration: none;
+    transition: color .2s, background .2s;
+    border-left: 2px solid transparent;
+  }
+  .nav-dropdown a:hover {
+    color: var(--caramelo);
+    background: rgba(196,135,74,0.07);
+    border-left-color: var(--caramelo);
+  }
+  .nav-dropdown a .dd-num {
+    font-family: var(--heading); font-size: 13px; color: rgba(196,135,74,0.4);
+    min-width: 20px;
+  }
+  .nav-dropdown hr { border: none; border-top: 1px solid rgba(196,135,74,0.1); margin: 4px 0; }
+
+  .nav-cta {
+    background: var(--caramelo); color: var(--marfil) !important;
+    padding: 10px 22px; border-radius: 2px; transition: background .2s !important;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+  }
+  .nav-cta:hover { background: var(--roble) !important; color: var(--marfil) !important; }
+
+  .nav-burger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+  .nav-burger span { display:block; width:24px; height:2px; background:var(--crema); border-radius:2px; transition:.3s; }
+
+  .nav-mobile {
+    display: none; position: fixed; top: 72px; left: 0; right: 0;
+    background: rgba(44,32,19,0.98); padding: 24px 28px;
+    flex-direction: column; gap: 4px;
+    border-bottom: 1px solid rgba(196,135,74,0.2); z-index: 99;
+  }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a {
+    font-family: var(--body); font-size: 13px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--crema);
+    text-decoration: none; padding: 10px 0;
+    border-bottom: 1px solid rgba(196,135,74,0.1);
+  }
+  .nav-mobile a.sub { padding-left: 20px; font-size: 11px; color: rgba(237,224,204,0.55); letter-spacing: 1.5px; }
+  .nav-mobile a.sub:hover { color: var(--caramelo); }
+  .nav-mobile a.cta-mobile { border-bottom: none; color: var(--caramelo); margin-top: 6px; }
+
+  /* ══ PAGE HERO ══ */
+  .page-hero {
+    background: var(--carbon); padding: 140px 80px 80px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 120px, rgba(139,94,60,0.04) 120px, rgba(139,94,60,0.04) 121px),
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(196,135,74,0.03) 40px, rgba(196,135,74,0.03) 41px);
+  }
+  .page-hero::after {
+    content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 50%;
+    background: radial-gradient(ellipse at 80% 50%, rgba(139,94,60,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .breadcrumb {
+    font-family: var(--body); font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(196,135,74,0.7); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .breadcrumb a { color: inherit; text-decoration: none; transition: color .2s; }
+  .breadcrumb a:hover { color: var(--caramelo); }
+  .breadcrumb span { color: rgba(237,224,204,0.3); }
+  .page-hero h1 {
+    font-family: var(--heading); font-size: clamp(42px, 5vw, 72px);
+    font-weight: 700; color: var(--arena); line-height: 1.1; margin-bottom: 20px;
+    animation: fadeUp .8s ease both;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--caramelo); }
+  .page-hero p {
+    font-size: 17px; font-weight: 300; color: var(--crema);
+    max-width: 520px; line-height: 1.75; opacity: .85;
+    animation: fadeUp .8s .15s ease both;
+  }
+
+  /* ══ SECTION WRAPPERS ══ */
+  .section { padding: 0 80px; max-width: 1200px; margin: 0 auto; }
+
+  .label-tag {
+    font-family: var(--body); font-size: 11px; font-weight: 700;
+    letter-spacing: 4px; text-transform: uppercase; color: var(--caramelo);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .saw-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0; width: 26px; height: 26px;
+    animation: saw-spin 3s linear infinite; transform-origin: center;
+  }
+  .saw-icon svg { width: 100%; height: 100%; }
+  @keyframes saw-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* ══ SERVICE ROW WRAPPERS (alternating bg) ══ */
+  .service-row {
+    padding: 0;
+  }
+  .service-row:nth-child(odd)  { background: var(--marfil); }
+  .service-row:nth-child(even) { background: var(--crema); }
+
+  /* The inner block */
+  .service-block {
+    padding: 80px 80px;
+    max-width: 1200px; margin: 0 auto;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+    opacity: 0; transform: translateY(32px);
+    transition: opacity .7s ease, transform .7s ease;
+    border-bottom: 1px solid rgba(139,94,60,0.1);
+  }
+  .service-row:last-of-type .service-block { border-bottom: none; }
+  .service-block.visible { opacity: 1; transform: translateY(0); }
+  .service-block.reverse { direction: rtl; }
+  .service-block.reverse > * { direction: ltr; }
+
+  /* Text */
+  .service-number { font-family: var(--heading); font-size: 80px; font-weight: 700; color: rgba(139, 94, 60, 0.274); line-height: 1; margin-bottom: 8px; }
+  .service-text h2 { font-family: var(--heading); font-size: clamp(28px, 3vw, 44px); font-weight: 700; color: var(--carbon); line-height: 1.15; margin-bottom: 20px; }
+  .service-text h2 em { font-style: italic; color: var(--roble); }
+  .service-text p { font-size: 15px; font-weight: 300; color: #6b5744; line-height: 1.8; margin-bottom: 16px; }
+
+  .feature-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 24px 0 32px; }
+  .feature-list li { display: flex; align-items: center; gap: 12px; font-family: var(--body); font-size: 13px; font-weight: 400; color: var(--carbon); }
+  .feature-list li::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--caramelo); flex-shrink: 0; }
+
+  .service-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .service-tag { font-family: var(--body); font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--caramelo); background: rgba(196,135,74,0.10); padding: 5px 12px; border-radius: 2px; border: 1px solid rgba(196,135,74,0.2); }
+
+  .btn-service { display: inline-block; background: var(--caramelo); color: var(--marfil); font-family: var(--body); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 14px 32px; border-radius: 2px; text-decoration: none; transition: background .25s, transform .2s; }
+  .btn-service:hover { background: var(--roble); transform: translateY(-2px); }
+
+  /* Photos */
+  .service-photos { position: relative; }
+  .photos-stack { position: relative; width: 100%; aspect-ratio: 4/3; }
+  .photo-main { width: 100%; height: 100%; border-radius: 6px; overflow: hidden; box-shadow: 0 20px 60px rgba(44,32,19,0.18); position: relative; background: linear-gradient(145deg, var(--arena) 0%, var(--crema) 100%); }
+  .photo-slide { position: absolute; inset: 0; opacity: 0; transition: opacity 1s ease-in-out; }
+  .photo-slide.active { opacity: 1; }
+  .photo-slide img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; }
+  .photo-slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 50%, rgba(44,32,19,0.25) 100%); pointer-events: none; }
+
+  .photo-thumbs { display: flex; gap: 8px; margin-top: 12px; }
+  .thumb { width: 60px; height: 50px; border-radius: 3px; overflow: hidden; cursor: pointer; border: 2px solid transparent; transition: border-color .25s, transform .2s; flex-shrink: 0; background: var(--crema); }
+  .thumb:hover { transform: translateY(-2px); }
+  .thumb.active { border-color: var(--caramelo); }
+  .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
+
+  .photo-dots { position: absolute; bottom: 16px; right: 16px; display: flex; gap: 6px; z-index: 2; }
+  .p-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(250,246,240,0.4); cursor: pointer; transition: background .3s, transform .3s; }
+  .p-dot.active { background: var(--caramelo); transform: scale(1.4); }
+
+  .photo-badge { position: absolute; top: -20px; right: -20px; width: 80px; height: 80px; background: var(--caramelo); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; box-shadow: 0 8px 24px rgba(196,135,74,0.4); z-index: 3; }
+  .photo-badge .b-icon { color: white; }
+  .photo-badge .b-icon svg { width: 28px; height: 28px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+  /* ══ DARK TEXT on dark row override not needed ══ */
+
+  /* ══ PROCESS BAND ══ */
+  .process-band { background: var(--carbon); padding: 80px; }
+  .process-inner { max-width: 1200px; margin: 0 auto; }
+  .process-band .label-tag { color: var(--caramelo); }
+  .process-band h2 { font-family: var(--heading); font-size: clamp(32px, 4vw, 52px); font-weight: 700; color: var(--arena); line-height: 1.15; margin-bottom: 60px; }
+  .process-band h2 em { font-style: italic; color: var(--caramelo); }
+  .process-steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; }
+  .process-step { padding: 36px 28px; background: rgba(255,255,255,0.03); border: 1px solid rgba(242,224,200,0.07); position: relative; transition: background .3s; }
+  .process-step:hover { background: rgba(196,135,74,0.07); }
+  .process-step-num { font-family: var(--heading); font-size: 56px; font-weight: 700; color: rgba(196,135,74,0.15); line-height: 1; margin-bottom: 16px; }
+  .process-step h3 { font-family: var(--heading); font-size: 18px; font-weight: 600; color: var(--arena); margin-bottom: 10px; }
+  .process-step p { font-size: 13px; font-weight: 300; color: rgba(237,224,204,0.55); line-height: 1.7; }
+  .process-step-icon { position: absolute; top: 28px; right: 28px; color: var(--caramelo); opacity: .5; }
+  .process-step-icon svg { width: 24px; height: 24px; stroke: currentColor; fill: none; stroke-width: 1.5; }
+
+  /* ══ AREAS ══ */
+  .areas-band { background: var(--arena); padding: 64px 80px; }
+  .areas-inner { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: center; }
+  .areas-left h2 { font-family: var(--heading); font-size: 36px; font-weight: 700; color: var(--carbon); line-height: 1.2; margin-bottom: 12px; }
+  .areas-left h2 em { font-style: italic; color: var(--roble); }
+  .areas-left p { font-size: 14px; font-weight: 300; color: #7a6652; line-height: 1.7; }
+  .areas-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+  .area-chip { font-family: var(--body); font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--carbon); background: white; padding: 10px 18px; border-radius: 2px; border-left: 3px solid var(--caramelo); box-shadow: 0 2px 8px rgba(139,94,60,0.08); transition: transform .2s, box-shadow .2s; }
+  .area-chip:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(139,94,60,0.12); }
+
+  /* ══ CTA ══ */
+  .cta-band { background: var(--roble); padding: 80px; text-align: center; position: relative; overflow: hidden; }
+  .cta-band::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(242,224,200,0.04) 20px, rgba(242,224,200,0.04) 21px); }
+  .cta-band h2 { font-family: var(--heading); font-size: clamp(32px, 4vw, 52px); font-weight: 700; color: var(--marfil); margin-bottom: 16px; position: relative; }
+  .cta-band p { font-family: var(--body); font-size: 17px; font-weight: 300; color: var(--arena); max-width: 480px; margin: 0 auto 40px; line-height: 1.7; position: relative; }
+  .cta-band .btn-light { display: inline-block; background: var(--marfil); color: var(--roble); font-family: var(--body); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 44px; border-radius: 2px; text-decoration: none; position: relative; transition: background .25s, transform .2s; }
+  .cta-band .btn-light:hover { background: var(--arena); transform: translateY(-2px); }
+
+  /* ══ FOOTER ══ */
+  footer { background: var(--carbon); padding: 60px 80px 32px; }
+  .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; padding-bottom: 48px; border-bottom: 1px solid rgba(242,224,200,0.1); }
+  .footer-brand .logo { font-family: var(--heading); font-size: 24px; font-weight: 700; color: var(--arena); margin-bottom: 16px; }
+  .footer-brand .logo span { color: var(--caramelo); }
+  .footer-brand p { font-size: 14px; font-weight: 300; color: rgba(237,224,204,0.55); line-height: 1.7; max-width: 260px; }
+  .footer-phone { margin-top: 20px; font-family: var(--heading); font-size: 18px; color: var(--caramelo); text-decoration: none; display: block; }
+  .footer-col h4 { font-family: var(--body); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--caramelo); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { font-size: 14px; font-weight: 300; color: rgba(237,224,204,0.6); text-decoration: none; transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--caramelo); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(237,224,204,0.3); font-weight: 300; }
+  .footer-rating { display:flex; align-items:center; gap:8px; }
+  .footer-rating .stars { color: var(--caramelo); letter-spacing:2px; }
+  .footer-social { display:flex; gap:12px; margin-top:24px; }
+  .social-icon { width:40px; height:40px; border-radius:8px; border:1.5px solid rgba(242,224,200,0.2); background:transparent; display:flex; align-items:center; justify-content:center; text-decoration:none; transition: border-color .25s, background .25s, transform .2s; color: rgba(242,224,200,0.5); }
+  .social-icon svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.6; }
+  .social-icon:hover { border-color:var(--caramelo); background:rgba(196,135,74,0.1); color:var(--caramelo); transform:translateY(-2px); }
+  .social-icon.yelp svg { fill:currentColor; stroke:none; }
+
+  /* ══ BACK TO TOP ══ */
+  .back-to-top {
+    position: fixed; bottom: 32px; right: 32px; z-index: 200;
+    width: 52px; height: 52px;
+    opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity .35s, visibility .35s, transform .35s;
+    transform: translateY(12px);
+    cursor: pointer;
+  }
+  .back-to-top.visible {
+    opacity: 1; visibility: visible; pointer-events: auto;
+    transform: translateY(0);
+  }
+  .btt-svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+  .btt-track { fill: none; stroke: rgba(196,135,74,0.2); stroke-width: 2.5; }
+  .btt-progress { fill: none; stroke: var(--caramelo); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 138; stroke-dashoffset: 138; transition: stroke-dashoffset .1s linear; }
+  .btt-btn {
+    position: absolute; inset: 6px;
+    background: var(--carbon); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 20px rgba(44,32,19,0.35);
+    transition: background .25s, transform .2s;
+    border: none;
+  }
+  .back-to-top:hover .btt-btn { background: var(--caramelo); transform: scale(1.05); }
+  .btt-btn svg { width: 16px; height: 16px; stroke: var(--arena); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; transition: stroke .25s; }
+  .back-to-top:hover .btt-btn svg { stroke: var(--marfil); }
+
+  /* ══ ANIMATIONS ══ */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ══ RESPONSIVE ══ */
+  @media (max-width: 900px) {
+    nav { padding:0 24px; }
+    .nav-links { display:none; }
+    .nav-burger { display:flex; }
+    .page-hero { padding:120px 28px 60px; }
+    .service-block { grid-template-columns:1fr; gap:36px; direction:ltr !important; padding: 48px 28px; }
+    .service-number { font-size:56px; }
+    .process-band { padding:60px 28px; }
+    .process-steps { grid-template-columns:1fr 1fr; }
+    .areas-band { padding:48px 28px; }
+    .areas-inner { grid-template-columns:1fr; gap:32px; }
+    .cta-band { padding:60px 28px; }
+    footer { padding:48px 28px 24px; }
+    .footer-grid { grid-template-columns:1fr; gap:36px; }
+    .footer-bottom { flex-direction:column; gap:12px; text-align:center; }
+    .photo-badge { display:none; }
+    .back-to-top { bottom: 20px; right: 20px; width: 46px; height: 46px; }
+  }
+  @media (max-width: 600px) { .process-steps { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="home.html" class="nav-logo">Sola's <span>Carpentry</span></a>
+  <ul class="nav-links">
+    <li><a href="home.html#about">About</a></li>
+    <li class="nav-has-dropdown">
+      <a href="services.html" class="active">Services</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-inner">
+          <a href="services.html#cabinetry"><span class="dd-num">01</span>Custom Cabinetry</a>
+          <a href="services.html#remodeling"><span class="dd-num">02</span>Home Remodeling</a>
+          <a href="services.html#flooring"><span class="dd-num">03</span>Hardwood Flooring</a>
+          <a href="services.html#doors"><span class="dd-num">04</span>Doors &amp; Windows</a>
+          <a href="services.html#drywall"><span class="dd-num">05</span>Drywall &amp; Finishing</a>
+          <a href="services.html#commercial"><span class="dd-num">06</span>Commercial Projects</a>
+        </div>
+      </div>
+    </li>
+    <li><a href="home.html#testimonials">Reviews</a></li>
+    <li><a href="home.html#location">Location</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+    <li><a href="tel:+15106214468" class="nav-cta">Call Us</a></li>
+  </ul>
+  <div class="nav-burger" onclick="document.querySelector('.nav-mobile').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="nav-mobile">
+  <a href="home.html#about">About</a>
+  <a href="services.html">Services</a>
+  <a href="services.html#cabinetry" class="sub">↳ Custom Cabinetry</a>
+  <a href="services.html#remodeling" class="sub">↳ Home Remodeling</a>
+  <a href="services.html#flooring" class="sub">↳ Hardwood Flooring</a>
+  <a href="services.html#doors" class="sub">↳ Doors &amp; Windows</a>
+  <a href="services.html#drywall" class="sub">↳ Drywall &amp; Finishing</a>
+  <a href="services.html#commercial" class="sub">↳ Commercial Projects</a>
+  <a href="home.html#testimonials">Reviews</a>
+  <a href="home.html#location">Location</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="tel:+15106214468" class="cta-mobile">Call (510) 621-4468</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="home.html">Home</a><span>/</span>Services
+    </div>
+    <h1>Expert craftsmanship<br>for every <em>space you love.</em></h1>
+    <p>From a single cabinet to a full home renovation — Sola's Carpentry brings precision, care, and 8+ years of Bay Area experience to every job.</p>
+  </div>
+</div>
+
+<!-- ══ 01 CUSTOM CABINETRY ══ -->
+<div class="service-row" id="cabinetry">
+  <div class="service-block">
+    <div class="service-text">
+      <div class="service-number">01</div>
+      <div class="label-tag"><span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>Custom Cabinetry<span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span></div>
+      <h2>Built exactly the<br>way <em>you imagine it.</em></h2>
+      <p>No two kitchens, bathrooms, or living spaces are the same — and your cabinetry shouldn't be either. Every cabinet Noe builds is designed from scratch to fit your dimensions, your style, and the way you actually use your space.</p>
+      <p>Whether you're looking for sleek modern lines, classic raised panels, or something completely custom, the result is always the same: solid construction, tight fits, and a finish that lasts decades.</p>
+      <ul class="feature-list">
+        <li>Full kitchen cabinet sets — from layout to installation</li>
+        <li>Bathroom vanities and under-sink cabinetry</li>
+        <li>Closet organizers and built-in wardrobes</li>
+        <li>Home office built-ins and bookshelves</li>
+        <li>Laundry room storage and mudroom cabinets</li>
+        <li>Custom pantry systems and pull-out shelving</li>
+      </ul>
+      <div class="service-tags"><span class="service-tag">Kitchen</span><span class="service-tag">Bathroom</span><span class="service-tag">Built-ins</span><span class="service-tag">Closets</span><span class="service-tag">Office</span></div>
+      <a href="contact.html" class="btn-service">Get a Free Quote</a>
+    </div>
+    <div class="service-photos">
+      <div class="photos-stack">
+        <div class="photo-main" id="photos-01">
+          <div class="photo-slide active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CAJON.png" alt="Custom cabinetry" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-slide"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/COCINA.png" alt="Kitchen cabinets" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-slide"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/WORK.png" alt="Carpentry work" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-dots" id="dots-01"><div class="p-dot active"></div><div class="p-dot"></div><div class="p-dot"></div></div>
+        </div>
+        <div class="photo-thumbs" id="thumbs-01">
+          <div class="thumb active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CAJON.png" alt=""></div>
+          <div class="thumb"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/COCINA.png" alt=""></div>
+          <div class="thumb"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/WORK.png" alt=""></div>
+        </div>
+      </div>
+      <div class="photo-badge"><div class="b-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 02 HOME REMODELING ══ -->
+<div class="service-row" id="remodeling">
+  <div class="service-block reverse">
+    <div class="service-text">
+      <div class="service-number">02</div>
+      <div class="label-tag"><span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>Home Remodeling<span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span></div>
+      <h2>Your home,<br><em>completely transformed.</em></h2>
+      <p>A full remodel is a big investment — and it deserves someone you can trust to manage it properly. Noe handles every phase personally, from the first demo nail to the final coat of finish. No crews of strangers, no subcontractors you've never met.</p>
+      <p>Bathrooms, kitchens, basements, and full-room renovations — each project is handled with the same attention to detail as a custom piece of furniture.</p>
+      <ul class="feature-list">
+        <li>Full bathroom remodels — layout, tile, fixtures, vanity</li>
+        <li>Kitchen renovations — from countertops to structural changes</li>
+        <li>Room additions and space conversions</li>
+        <li>Basement finishing and waterproofing prep</li>
+        <li>Structural framing and load-bearing modifications</li>
+        <li>Complete project management from start to final walkthrough</li>
+      </ul>
+      <div class="service-tags"><span class="service-tag">Bathroom</span><span class="service-tag">Kitchen</span><span class="service-tag">Full Renovation</span><span class="service-tag">Framing</span></div>
+      <a href="contact.html" class="btn-service">Get a Free Quote</a>
+    </div>
+    <div class="service-photos">
+      <div class="photos-stack">
+        <div class="photo-main" id="photos-02">
+          <div class="photo-slide active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/HOME.png" alt="Home remodeling" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-slide"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/ROOM.png" alt="Remodeled room" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-slide"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CARPINTERO.png" alt="Noe at work" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-dots" id="dots-02"><div class="p-dot active"></div><div class="p-dot"></div><div class="p-dot"></div></div>
+        </div>
+        <div class="photo-thumbs" id="thumbs-02">
+          <div class="thumb active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/HOME.png" alt=""></div>
+          <div class="thumb"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/ROOM.png" alt=""></div>
+          <div class="thumb"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CARPINTERO.png" alt=""></div>
+        </div>
+      </div>
+      <div class="photo-badge"><div class="b-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 03 HARDWOOD FLOORING ══ -->
+<div class="service-row" id="flooring">
+  <div class="service-block">
+    <div class="service-text">
+      <div class="service-number">03</div>
+      <div class="label-tag"><span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>Hardwood Flooring<span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span></div>
+      <h2>Floors that feel as<br>good as they <em>look.</em></h2>
+      <p>A great floor changes everything about a room — the warmth, the acoustics, the way light moves through the space. Noe works with hardwood, engineered wood, laminate, and luxury vinyl to give you the look and durability that fits your life.</p>
+      <p>Every installation starts with a proper subfloor inspection and moisture assessment. No shortcuts, no squeaks six months later.</p>
+      <ul class="feature-list">
+        <li>Hardwood installation — solid and engineered options</li>
+        <li>Laminate and luxury vinyl plank (LVP) installation</li>
+        <li>Hardwood refinishing — sanding, staining, sealing</li>
+        <li>Damaged board repair and replacement</li>
+        <li>Subfloor leveling and preparation</li>
+        <li>Stair treads and transitions between rooms</li>
+      </ul>
+      <div class="service-tags"><span class="service-tag">Hardwood</span><span class="service-tag">Laminate</span><span class="service-tag">Vinyl</span><span class="service-tag">Refinishing</span><span class="service-tag">Repair</span></div>
+      <a href="contact.html" class="btn-service">Get a Free Quote</a>
+    </div>
+    <div class="service-photos">
+      <div class="photos-stack">
+        <div class="photo-main" id="photos-03">
+          <div class="photo-slide active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/ROOM.png" alt="Hardwood flooring" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-slide"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/HOME.png" alt="Finished flooring" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-dots" id="dots-03"><div class="p-dot active"></div><div class="p-dot"></div></div>
+        </div>
+        <div class="photo-thumbs" id="thumbs-03">
+          <div class="thumb active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/ROOM.png" alt=""></div>
+          <div class="thumb"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/HOME.png" alt=""></div>
+        </div>
+      </div>
+      <div class="photo-badge"><div class="b-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 04 DOORS & WINDOWS ══ -->
+<div class="service-row" id="doors">
+  <div class="service-block reverse">
+    <div class="service-text">
+      <div class="service-number">04</div>
+      <div class="label-tag"><span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>Doors &amp; Windows<span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span></div>
+      <h2>First impressions<br>start at the <em>door.</em></h2>
+      <p>A poorly fitted door rattles, sticks, and lets in drafts. A beautifully installed door is silent, solid, and tells guests everything about the quality inside. Noe treats every door and window installation with the same precision he brings to fine furniture.</p>
+      <p>Whether it's a single interior door or a full exterior replacement with new framing, the fit is always perfect and the finish is always clean.</p>
+      <ul class="feature-list">
+        <li>Interior door installation and replacement</li>
+        <li>Exterior entry doors — pre-hung and custom frames</li>
+        <li>French doors and sliding barn doors</li>
+        <li>Window trim, casing, and sill installation</li>
+        <li>Door and window frame repair or rebuilding</li>
+        <li>Weatherstripping and seal work for energy efficiency</li>
+      </ul>
+      <div class="service-tags"><span class="service-tag">Interior</span><span class="service-tag">Exterior</span><span class="service-tag">Framing</span><span class="service-tag">Trim</span></div>
+      <a href="contact.html" class="btn-service">Get a Free Quote</a>
+    </div>
+    <div class="service-photos">
+      <div class="photos-stack">
+        <div class="photo-main" id="photos-04">
+          <div class="photo-slide active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CARPINTERO.png" alt="Door installation" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-slide"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/WORK.png" alt="Carpentry work" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-dots" id="dots-04"><div class="p-dot active"></div><div class="p-dot"></div></div>
+        </div>
+        <div class="photo-thumbs" id="thumbs-04">
+          <div class="thumb active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CARPINTERO.png" alt=""></div>
+          <div class="thumb"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/WORK.png" alt=""></div>
+        </div>
+      </div>
+      <div class="photo-badge"><div class="b-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 05 DRYWALL & FINISHING ══ -->
+<div class="service-row" id="drywall">
+  <div class="service-block">
+    <div class="service-text">
+      <div class="service-number">05</div>
+      <div class="label-tag"><span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>Drywall &amp; Finishing<span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span></div>
+      <h2>Walls so smooth,<br>you'll forget they <em>were fixed.</em></h2>
+      <p>Great drywall work is invisible — and that's exactly the point. Whether it's a fresh installation for a new room, a patch after water damage, or a complete texture refresh, Noe delivers results that blend seamlessly with the rest of your walls.</p>
+      <p>He's done it all: smooth finish, orange peel, knockdown, skip trowel. The technique is always matched to what already exists in your home.</p>
+      <ul class="feature-list">
+        <li>New drywall installation — walls and ceilings</li>
+        <li>Patch and repair — holes, cracks, water damage</li>
+        <li>Texture matching — orange peel, knockdown, smooth</li>
+        <li>Popcorn ceiling removal and re-texturing</li>
+        <li>Corner bead installation and taping</li>
+        <li>Ready-to-paint finish — sanded, primed, and perfect</li>
+      </ul>
+      <div class="service-tags"><span class="service-tag">Drywall</span><span class="service-tag">Texture</span><span class="service-tag">Repair</span><span class="service-tag">Ceiling</span><span class="service-tag">Taping</span></div>
+      <a href="contact.html" class="btn-service">Get a Free Quote</a>
+    </div>
+    <div class="service-photos">
+      <div class="photos-stack">
+        <div class="photo-main" id="photos-05">
+          <div class="photo-slide active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/WORK.png" alt="Drywall work" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-slide"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CARPINTERO.png" alt="Finishing work" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-dots" id="dots-05"><div class="p-dot active"></div><div class="p-dot"></div></div>
+        </div>
+        <div class="photo-thumbs" id="thumbs-05">
+          <div class="thumb active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/WORK.png" alt=""></div>
+          <div class="thumb"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CARPINTERO.png" alt=""></div>
+        </div>
+      </div>
+      <div class="photo-badge"><div class="b-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/></svg></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 06 COMMERCIAL ══ -->
+<div class="service-row" id="commercial">
+  <div class="service-block reverse">
+    <div class="service-text">
+      <div class="service-number">06</div>
+      <div class="label-tag"><span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>Commercial Projects<span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span></div>
+      <h2>Professional results<br>for <em>business spaces.</em></h2>
+      <p>Commercial spaces demand reliability — strict deadlines, minimal disruption, and a clean finish that reflects well on your business. Noe has worked with offices, restaurants, retail storefronts, and professional service spaces across the Bay Area.</p>
+      <p>Every commercial project gets a clear timeline, regular progress updates, and work scheduled to minimize disruption to your operations.</p>
+      <ul class="feature-list">
+        <li>Office buildouts and tenant improvement work</li>
+        <li>Retail fit-outs — shelving, counters, display units</li>
+        <li>Restaurant and hospitality interior work</li>
+        <li>Commercial drywall, flooring, and cabinetry</li>
+        <li>Scheduled work during off-hours when needed</li>
+        <li>Coordination with property managers and contractors</li>
+      </ul>
+      <div class="service-tags"><span class="service-tag">Offices</span><span class="service-tag">Retail</span><span class="service-tag">Restaurants</span><span class="service-tag">Buildouts</span></div>
+      <a href="tel:+15106214468" class="btn-service">Talk to Noe</a>
+    </div>
+    <div class="service-photos">
+      <div class="photos-stack">
+        <div class="photo-main" id="photos-06">
+          <div class="photo-slide active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CAJON.png" alt="Commercial carpentry" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-slide"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/COCINA.png" alt="Commercial kitchen" onerror="this.closest('.photo-slide').style.display='none'"></div>
+          <div class="photo-dots" id="dots-06"><div class="p-dot active"></div><div class="p-dot"></div></div>
+        </div>
+        <div class="photo-thumbs" id="thumbs-06">
+          <div class="thumb active"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/CAJON.png" alt=""></div>
+          <div class="thumb"><img src="https://solascarpentryservices.com/wp-content/uploads/2026/04/COCINA.png" alt=""></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROCESS -->
+<div class="process-band">
+  <div class="process-inner">
+    <div class="label-tag"><span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>How It Works<span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span></div>
+    <h2>Simple process,<br><em>outstanding results.</em></h2>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="process-step-num">01</div>
+        <div class="process-step-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 13.5 19.79 19.79 0 0 1 1.06 4.9 2 2 0 0 1 3 2.9h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 10.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 21 17.9z"/></svg></div>
+        <h3>Free Consultation</h3>
+        <p>Call or text Noe directly. Describe your project, ask questions, and get a feel for whether we're the right fit — no pressure, no sales pitch.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">02</div>
+        <div class="process-step-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+        <h3>On-Site Quote</h3>
+        <p>Noe visits your space, takes measurements, and gives you a detailed written quote. Transparent pricing — no vague estimates that balloon later.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">03</div>
+        <div class="process-step-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <h3>Scheduled Work</h3>
+        <p>We agree on a start date and timeline that works for you. Noe shows up when he says he will — every time, without exception.</p>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">04</div>
+        <div class="process-step-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>Final Walkthrough</h3>
+        <p>When the work is done, Noe walks you through everything. You don't pay the balance until you're 100% happy with the result.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- AREAS SERVED -->
+<div class="areas-band">
+  <div class="areas-inner">
+    <div class="areas-left">
+      <div class="label-tag" style="color:var(--roble);"><span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#8B5E3C"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#8B5E3C" opacity="0.3"/></svg></span>Service Area<span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#8B5E3C"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#8B5E3C" opacity="0.3"/></svg></span></div>
+      <h2>We serve the<br><em>entire Bay Area.</em></h2>
+      <p>Based in Richmond, CA — Sola's Carpentry travels across Contra Costa and Alameda counties, and throughout the greater Bay Area for larger projects.</p>
+    </div>
+    <div class="areas-chips">
+      <div class="area-chip">Richmond</div><div class="area-chip">El Cerrito</div><div class="area-chip">Albany</div><div class="area-chip">Berkeley</div><div class="area-chip">Oakland</div><div class="area-chip">San Pablo</div><div class="area-chip">Hercules</div><div class="area-chip">Pinole</div><div class="area-chip">San Leandro</div><div class="area-chip">Alameda</div><div class="area-chip">Walnut Creek</div><div class="area-chip">Concord</div><div class="area-chip">Martinez</div><div class="area-chip">San Francisco</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>Let's build something great.</h2>
+  <p>Free quotes, honest pricing, and Bay Area craftsmanship you can count on. Noe picks up the phone.</p>
+  <a href="tel:+15106214468" class="btn-light">Call (510) 621-4468</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">Sola's <span>Carpentry</span></div>
+      <p>Quality carpentry and remodeling services for homes and businesses across Richmond and the Bay Area.</p>
+      <a href="tel:+15106214468" class="footer-phone">(510) 621-4468</a>
+      <div class="footer-social">
+        <a href="#" class="social-icon" title="Facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" class="social-icon" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" class="social-icon" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://www.yelp.com/biz/solas-carpentry-richmond" class="social-icon yelp" title="Yelp" aria-label="Yelp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.17 2C9.29 2 7 4.26 7 7.12c0 1.63.73 3.08 1.88 4.06L5.1 15.35c-.41.68-.15 1.55.56 1.93l.1.05c.71.35 1.57.07 1.96-.62l3.64-6.2c.27.05.55.08.84.08 2.88 0 5.17-2.26 5.17-5.12S15.05 2 12.17 2zm-5.3 14.3l-.02.03c-.58.97-.24 2.22.77 2.78l.1.06c1 .56 2.28.24 2.87-.73l1.62-2.76c-.48-.06-.94-.19-1.37-.38l-3.97.99zM16.5 13.8c-.4-.07-.82-.05-1.22.09l-2.2 3.75c.1.43.13.88.08 1.34l2.2-3.75c.4-.68 1.27-.92 1.97-.54l.1.06c.7.41.94 1.3.54 2l-2.25 3.84c.45-.15.85-.43 1.12-.84l2.25-3.84c.82-1.4.34-3.2-1.07-4.01l-.1-.06c-.47-.27-.98-.37-1.48-.31l.06-.73z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#cabinetry">Custom Cabinetry</a></li>
+        <li><a href="#remodeling">Home Remodeling</a></li>
+        <li><a href="#flooring">Hardwood Flooring</a></li>
+        <li><a href="#doors">Doors &amp; Windows</a></li>
+        <li><a href="#drywall">Drywall &amp; Finishing</a></li>
+        <li><a href="#commercial">Commercial Projects</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="home.html#about">About Noe</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="home.html#testimonials">Reviews</a></li>
+        <li><a href="home.html#location">Location</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 <a href="https://www.vanersity.com/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C4874A'" onmouseout="this.style.color='inherit'">Vanersity Tech Inc</a> · All rights reserved.</span>
+    <div class="footer-rating">
+      <span class="stars">★★★★★</span>
+      <a href="https://www.google.com/maps/place/SOLA'S+CARPENTRY/@37.9458344,-122.3503176,15z/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C4874A'" onmouseout="this.style.color='inherit'">5.0 on Google Reviews</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<div class="back-to-top" id="backToTop" role="button" aria-label="Back to top" tabindex="0">
+  <svg class="btt-svg" viewBox="0 0 52 52">
+    <circle class="btt-track" cx="26" cy="26" r="22"/>
+    <circle class="btt-progress" id="bttProgress" cx="26" cy="26" r="22"/>
+  </svg>
+  <div class="btt-btn">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </div>
+</div>
+
+<script>
+// ── PHOTO GALLERIES ──────────────────────────────────────
+function initGallery(mainId, dotsId, thumbsId) {
+  const main = document.getElementById(mainId);
+  if (!main) return;
+  const dotsEl = dotsId ? document.getElementById(dotsId) : null;
+  const thumbsEl = thumbsId ? document.getElementById(thumbsId) : null;
+  const slides = main.querySelectorAll('.photo-slide');
+  const dots   = dotsEl ? dotsEl.querySelectorAll('.p-dot') : [];
+  const thumbs = thumbsEl ? thumbsEl.querySelectorAll('.thumb') : [];
+  let current = 0, timer;
+
+  function show(index) {
+    slides[current].classList.remove('active');
+    if (dots[current]) dots[current].classList.remove('active');
+    if (thumbs[current]) thumbs[current].classList.remove('active');
+    current = index % slides.length;
+    slides[current].classList.add('active');
+    if (dots[current]) dots[current].classList.add('active');
+    if (thumbs[current]) thumbs[current].classList.add('active');
+  }
+  function startAuto() { timer = setInterval(() => show(current + 1), 3500); }
+  dots.forEach((d, i) => d.addEventListener('click', () => { clearInterval(timer); show(i); startAuto(); }));
+  thumbs.forEach((t, i) => t.addEventListener('click', () => { clearInterval(timer); show(i); startAuto(); }));
+  startAuto();
+}
+['01','02','03','04','05','06'].forEach(n => initGallery(`photos-${n}`, `dots-${n}`, `thumbs-${n}`));
+
+// ── SCROLL REVEAL ──────────────────────────────────────
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.service-block').forEach(b => observer.observe(b));
+
+// ── BACK TO TOP ──────────────────────────────────────
+(function() {
+  const btn = document.getElementById('backToTop');
+  const progressCircle = document.getElementById('bttProgress');
+  const circumference = 2 * Math.PI * 22; // r=22 → 138.23
+
+  function updateProgress() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const docH = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    const pct = Math.min(scrollTop / docH, 1);
+    const offset = circumference * (1 - pct);
+    progressCircle.style.strokeDashoffset = offset;
+
+    if (scrollTop > 200) { btn.classList.add('visible'); }
+    else { btn.classList.remove('visible'); }
+  }
+
+  window.addEventListener('scroll', updateProgress, { passive: true });
+  updateProgress();
+
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); } });
+})();
+
+// ── MOBILE NAV ──────────────────────────────────────
+document.querySelector('.nav-burger')?.addEventListener('click', function() {
+  document.querySelector('.nav-mobile').classList.toggle('open');
+});
+</script>
+</body>
+</html>

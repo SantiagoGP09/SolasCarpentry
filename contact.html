@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact Us – Sola's Carpentry | Richmond, CA</title>
+<meta name="description" content="Get a free quote from Sola's Carpentry. Call, text, or fill out our contact form. Serving Richmond, Berkeley, Oakland and the entire Bay Area.">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --roble:    #8B5E3C;
+    --caramelo: #C4874A;
+    --arena:    #F2E0C8;
+    --marfil:   #FAF6F0;
+    --carbon:   #2C2013;
+    --musgo:    #6B7355;
+    --crema:    #EDE0CC;
+    --heading:  'Playfair Display', Georgia, serif;
+    --body:     'Lato', sans-serif;
+  }
+
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; font-size: 112.5%; }
+  body { font-family: var(--body); background: var(--marfil); color: var(--carbon); overflow-x: hidden; }
+
+  /* ══ NAV ══ */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 48px; height: 72px;
+    background: rgba(44,32,19,0.97); backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(196,135,74,0.2);
+  }
+  .nav-logo { font-family: var(--heading); font-size: 22px; font-weight: 700; color: var(--arena); text-decoration: none; letter-spacing: .5px; }
+  .nav-logo span { color: var(--caramelo); }
+  .nav-links { display: flex; gap: 36px; list-style: none; align-items: center; }
+  .nav-links > li { position: relative; }
+  .nav-links > li > a {
+    font-family: var(--body); font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--crema); text-decoration: none; transition: color .2s;
+    display: flex; align-items: center; gap: 5px; padding: 8px 0;
+  }
+  .nav-links > li > a:hover,
+  .nav-links > li > a.active { color: var(--caramelo); }
+  .nav-has-dropdown > a::after {
+    content: ''; display: inline-block; width: 6px; height: 6px;
+    border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg) translateY(-2px); transition: transform .25s;
+  }
+  .nav-has-dropdown:hover > a::after { transform: rotate(-135deg) translateY(-2px); }
+  .nav-dropdown {
+    position: absolute; top: 100%; left: 50%; transform: translateX(-50%);
+    padding-top: 12px; opacity: 0; pointer-events: none;
+    transition: opacity .22s, visibility .22s; visibility: hidden;
+  }
+  .nav-dropdown-inner {
+    background: rgba(28,19,10,0.98); backdrop-filter: blur(12px);
+    border: 1px solid rgba(196,135,74,0.15); border-radius: 6px;
+    padding: 8px 0; min-width: 210px;
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4); position: relative;
+  }
+  .nav-dropdown-inner::before {
+    content: ''; position: absolute; top: -5px; left: 50%;
+    transform: translateX(-50%) rotate(45deg); width: 9px; height: 9px;
+    background: rgba(28,19,10,0.98);
+    border-left: 1px solid rgba(196,135,74,0.15); border-top: 1px solid rgba(196,135,74,0.15);
+  }
+  .nav-has-dropdown:hover .nav-dropdown { opacity: 1; pointer-events: auto; visibility: visible; }
+  .nav-dropdown a {
+    display: flex; align-items: center; gap: 10px; padding: 10px 20px;
+    font-family: var(--body); font-size: 11px; font-weight: 700;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    color: rgba(237,224,204,0.65); text-decoration: none;
+    transition: color .2s, background .2s; border-left: 2px solid transparent;
+  }
+  .nav-dropdown a:hover { color: var(--caramelo); background: rgba(196,135,74,0.07); border-left-color: var(--caramelo); }
+  .nav-dropdown .dd-num { font-family: var(--heading); font-size: 13px; color: rgba(196,135,74,0.4); min-width: 20px; }
+  .nav-dropdown hr { border: none; border-top: 1px solid rgba(196,135,74,0.1); margin: 4px 0; }
+  .nav-cta { background: var(--caramelo); color: var(--marfil) !important; padding: 10px 22px; border-radius: 2px; transition: background .2s !important; padding-right: 10px !important;
+    padding-left: 10px !important;
+  }
+  .nav-cta:hover { background: var(--roble) !important; }
+  .nav-burger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:4px; }
+  .nav-burger span { display:block; width:24px; height:2px; background:var(--crema); border-radius:2px; transition:.3s; }
+  .nav-mobile {
+    display: none; position: fixed; top: 72px; left: 0; right: 0;
+    background: rgba(44,32,19,0.98); padding: 24px 28px;
+    flex-direction: column; gap: 4px;
+    border-bottom: 1px solid rgba(196,135,74,0.2); z-index: 99;
+  }
+  .nav-mobile.open { display: flex; }
+  .nav-mobile a {
+    font-family: var(--body); font-size: 13px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--crema);
+    text-decoration: none; padding: 10px 0; border-bottom: 1px solid rgba(196,135,74,0.1);
+  }
+  .nav-mobile a.sub { padding-left: 20px; font-size: 11px; color: rgba(237,224,204,0.55); letter-spacing: 1.5px; }
+  .nav-mobile a.sub:hover { color: var(--caramelo); }
+  .nav-mobile a.active { color: var(--caramelo); }
+  .nav-mobile a.cta-mobile { border-bottom: none; color: var(--caramelo); margin-top: 6px; }
+
+  /* ══ PAGE HERO ══ */
+  .page-hero {
+    background: var(--carbon); padding: 140px 80px 80px;
+    position: relative; overflow: hidden;
+  }
+  .page-hero::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      repeating-linear-gradient(90deg, transparent, transparent 120px, rgba(139,94,60,0.04) 120px, rgba(139,94,60,0.04) 121px),
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(196,135,74,0.03) 40px, rgba(196,135,74,0.03) 41px);
+  }
+  .page-hero::after {
+    content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 50%;
+    background: radial-gradient(ellipse at 80% 50%, rgba(139,94,60,0.2) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .page-hero-inner { max-width: 1200px; margin: 0 auto; position: relative; z-index: 1; }
+  .breadcrumb {
+    font-family: var(--body); font-size: 11px; font-weight: 700;
+    letter-spacing: 3px; text-transform: uppercase;
+    color: rgba(196,135,74,0.7); margin-bottom: 24px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .breadcrumb a { color: inherit; text-decoration: none; transition: color .2s; }
+  .breadcrumb a:hover { color: var(--caramelo); }
+  .breadcrumb span { color: rgba(237,224,204,0.3); }
+  .page-hero h1 {
+    font-family: var(--heading); font-size: clamp(42px, 5vw, 72px);
+    font-weight: 700; color: var(--arena); line-height: 1.1; margin-bottom: 20px;
+    animation: fadeUp .8s ease both;
+  }
+  .page-hero h1 em { font-style: italic; color: var(--caramelo); }
+  .page-hero p {
+    font-size: 17px; font-weight: 300; color: var(--crema);
+    max-width: 520px; line-height: 1.75; opacity: .85;
+    animation: fadeUp .8s .15s ease both;
+  }
+
+  /* ══ SAW ICON ══ */
+  .label-tag {
+    font-family: var(--body); font-size: 11px; font-weight: 700;
+    letter-spacing: 4px; text-transform: uppercase; color: var(--caramelo);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 16px;
+  }
+  .saw-icon {
+    display: inline-flex; align-items: center; justify-content: center;
+    flex-shrink: 0; width: 26px; height: 26px;
+    animation: saw-spin 3s linear infinite; transform-origin: center;
+  }
+  .saw-icon svg { width: 100%; height: 100%; }
+  @keyframes saw-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+  /* ══ MAIN CONTACT SECTION ══ */
+  .contact-section {
+    padding: 80px 80px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  /* ── FORM SIDE ── */
+  .form-panel > .label-tag { margin-bottom: 12px; }
+  .form-panel h2 {
+    font-family: var(--heading); font-size: clamp(30px, 3vw, 48px);
+    font-weight: 700; color: var(--carbon); line-height: 1.15; margin-bottom: 12px;
+  }
+  .form-panel h2 em { font-style: italic; color: var(--roble); }
+  .form-panel > p {
+    font-size: 15px; font-weight: 300; color: #7a6652; line-height: 1.75; margin-bottom: 40px;
+  }
+
+  /* Form elements */
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+  .form-group label {
+    font-family: var(--body); font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--roble);
+  }
+  .form-group .required-star { color: var(--caramelo); margin-left: 2px; }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-family: var(--body); font-size: 14px; font-weight: 400; color: var(--carbon);
+    background: white; border: 1.5px solid var(--crema); border-radius: 3px;
+    padding: 14px 16px; outline: none; width: 100%;
+    transition: border-color .25s, box-shadow .25s;
+    appearance: none; -webkit-appearance: none;
+  }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: rgba(139,94,60,0.3); font-weight: 300; }
+  .form-group input:focus,
+  .form-group select:focus,
+  .form-group textarea:focus {
+    border-color: var(--caramelo);
+    box-shadow: 0 0 0 3px rgba(196,135,74,0.12);
+  }
+  .form-group select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpolyline points='6 9 12 15 18 9' fill='none' stroke='%238B5E3C' stroke-width='2.5' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 16px center; padding-right: 40px; cursor: pointer; }
+  .form-group textarea { resize: vertical; min-height: 120px; line-height: 1.6; }
+
+  /* checkbox group */
+  .services-check-group {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
+  }
+  .check-item {
+    display: flex; align-items: center; gap: 10px;
+    font-family: var(--body); font-size: 12px; font-weight: 400; color: var(--carbon);
+    cursor: pointer; padding: 10px 14px; border-radius: 3px;
+    border: 1.5px solid var(--crema); background: white;
+    transition: border-color .2s, background .2s;
+    user-select: none;
+  }
+  .check-item:hover { border-color: rgba(196,135,74,0.4); background: rgba(196,135,74,0.04); }
+  .check-item.checked { border-color: var(--caramelo); background: rgba(196,135,74,0.08); color: var(--roble); font-weight: 700; }
+  .check-item input[type="checkbox"] { display: none; }
+  .check-box {
+    width: 16px; height: 16px; border-radius: 3px; flex-shrink: 0;
+    border: 1.5px solid var(--crema); background: white;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .2s, background .2s;
+  }
+  .check-item.checked .check-box { border-color: var(--caramelo); background: var(--caramelo); }
+  .check-box svg { width: 10px; height: 10px; stroke: white; fill: none; stroke-width: 2.5; opacity: 0; transition: opacity .2s; }
+  .check-item.checked .check-box svg { opacity: 1; }
+
+  /* submit button */
+  .btn-submit {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    background: var(--caramelo); color: var(--marfil);
+    font-family: var(--body); font-size: 12px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 18px 44px; border-radius: 2px; border: none; cursor: pointer;
+    width: 100%; margin-top: 8px;
+    transition: background .25s, transform .2s;
+  }
+  .btn-submit:hover { background: var(--roble); transform: translateY(-2px); }
+  .btn-submit svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+  /* form success message */
+  .form-success {
+    display: none;
+    text-align: center; padding: 60px 40px;
+    background: white; border-radius: 6px;
+    border: 1.5px solid rgba(107,115,85,0.2);
+  }
+  .form-success.visible { display: block; }
+  .form-success .success-icon {
+    width: 64px; height: 64px; background: rgba(107,115,85,0.1);
+    border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px;
+  }
+  .form-success .success-icon svg { width: 32px; height: 32px; stroke: var(--musgo); fill: none; stroke-width: 2; }
+  .form-success h3 { font-family: var(--heading); font-size: 28px; color: var(--carbon); margin-bottom: 12px; }
+  .form-success p { font-size: 15px; font-weight: 300; color: #7a6652; line-height: 1.7; }
+
+  /* ── INFO SIDE ── */
+  .info-panel { display: flex; flex-direction: column; gap: 0; }
+
+  /* Call CTA card */
+  .call-card {
+    background: var(--carbon); border-radius: 8px; padding: 36px 32px;
+    margin-bottom: 24px; position: relative; overflow: hidden;
+  }
+  .call-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(196,135,74,0.04) 20px, rgba(196,135,74,0.04) 21px);
+  }
+  .call-card .label-tag { position: relative; color: var(--caramelo); }
+  .call-card h3 {
+    font-family: var(--heading); font-size: 26px; font-weight: 700;
+    color: var(--arena); line-height: 1.2; margin-bottom: 8px; position: relative;
+  }
+  .call-card p { font-size: 13px; font-weight: 300; color: rgba(237,224,204,0.6); line-height: 1.65; margin-bottom: 24px; position: relative; }
+  .btn-call {
+    display: flex; align-items: center; justify-content: center; gap: 12px;
+    background: var(--caramelo); color: white;
+    font-family: var(--heading); font-size: 20px; font-weight: 600;
+    text-decoration: none; padding: 16px 28px; border-radius: 3px;
+    position: relative; transition: background .25s, transform .2s;
+    letter-spacing: .5px;
+  }
+  .btn-call:hover { background: var(--roble); transform: translateY(-2px); }
+  .btn-call svg { width: 20px; height: 20px; stroke: currentColor; fill: none; stroke-width: 2; flex-shrink: 0; }
+
+  /* Info cards */
+  .info-cards { display: flex; flex-direction: column; gap: 2px; }
+  .info-card {
+    background: white; padding: 24px 28px;
+    display: flex; align-items: flex-start; gap: 18px;
+    border-left: 3px solid transparent;
+    transition: border-color .25s, box-shadow .25s;
+  }
+  .info-card:first-child { border-radius: 6px 6px 0 0; }
+  .info-card:last-child  { border-radius: 0 0 6px 6px; }
+  .info-card:hover { border-left-color: var(--caramelo); box-shadow: 4px 0 20px rgba(196,135,74,0.08); }
+  .info-icon {
+    width: 44px; height: 44px; background: var(--carbon); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .info-icon svg { width: 20px; height: 20px; stroke: var(--caramelo); fill: none; stroke-width: 2; }
+  .info-label {
+    font-family: var(--body); font-size: 10px; font-weight: 700;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--musgo); margin-bottom: 4px;
+  }
+  .info-val {
+    font-family: var(--heading); font-size: 16px; font-weight: 400; color: var(--carbon); line-height: 1.4;
+  }
+  .info-val a { color: inherit; text-decoration: none; transition: color .2s; }
+  .info-val a:hover { color: var(--caramelo); }
+  .hours-table { margin-top: 4px; }
+  .hours-row {
+    display: flex; justify-content: space-between; gap: 20px;
+    font-family: var(--body); font-size: 13px; color: #7a6652;
+    padding: 3px 0; border-bottom: 1px solid rgba(237,224,204,0.5);
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-row .day { font-weight: 700; color: var(--carbon); min-width: 90px; }
+  .hours-row .closed { color: rgba(139,94,60,0.4); font-style: italic; }
+
+  /* Response time badge */
+  .response-badge {
+    display: flex; align-items: center; gap: 12px;
+    background: rgba(107,115,85,0.08); border: 1px solid rgba(107,115,85,0.2);
+    border-radius: 4px; padding: 12px 16px; margin-top: 16px;
+  }
+  .response-badge svg { width: 16px; height: 16px; stroke: var(--musgo); fill: none; stroke-width: 2; flex-shrink: 0; }
+  .response-badge span { font-family: var(--body); font-size: 12px; font-weight: 400; color: var(--musgo); }
+  .response-badge strong { font-weight: 700; }
+
+  /* ══ MAP SECTION ══ */
+  .map-section { background: var(--crema); padding: 80px; }
+  .map-inner { max-width: 1200px; margin: 0 auto; }
+  .map-inner .label-tag { color: var(--roble); }
+  .map-inner h2 {
+    font-family: var(--heading); font-size: clamp(28px, 3vw, 44px);
+    font-weight: 700; color: var(--carbon); line-height: 1.15; margin-bottom: 40px;
+  }
+  .map-inner h2 em { font-style: italic; color: var(--roble); }
+  .map-wrap {
+    border-radius: 8px; overflow: hidden;
+    box-shadow: 0 8px 40px rgba(44,32,19,0.12); border: 4px solid white;
+  }
+  .map-wrap iframe { width: 100%; height: 420px; display: block; border: none; }
+
+  /* ══ CTA BAND ══ */
+  .cta-band { background: var(--roble); padding: 80px; text-align: center; position: relative; overflow: hidden; }
+  .cta-band::before { content: ''; position: absolute; inset: 0; background: repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(242,224,200,0.04) 20px, rgba(242,224,200,0.04) 21px); }
+  .cta-band h2 { font-family: var(--heading); font-size: clamp(30px, 4vw, 48px); font-weight: 700; color: var(--marfil); margin-bottom: 16px; position: relative; }
+  .cta-band p { font-family: var(--body); font-size: 16px; font-weight: 300; color: var(--arena); max-width: 480px; margin: 0 auto 36px; line-height: 1.7; position: relative; }
+  .cta-band .cta-btns { display: flex; align-items: center; justify-content: center; gap: 16px; flex-wrap: wrap; position: relative; }
+  .cta-band .btn-light { display: inline-block; background: var(--marfil); color: var(--roble); font-family: var(--body); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 16px 44px; border-radius: 2px; text-decoration: none; transition: background .25s, transform .2s; }
+  .cta-band .btn-light:hover { background: var(--arena); transform: translateY(-2px); }
+  .cta-band .btn-outline { display: inline-block; border: 2px solid rgba(250,246,240,0.4); color: var(--arena); font-family: var(--body); font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 14px 32px; border-radius: 2px; text-decoration: none; transition: border-color .25s, color .25s, transform .2s; }
+  .cta-band .btn-outline:hover { border-color: var(--arena); color: white; transform: translateY(-2px); }
+
+  /* ══ FOOTER ══ */
+  footer { background: var(--carbon); padding: 60px 80px 32px; }
+  .footer-grid { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 60px; padding-bottom: 48px; border-bottom: 1px solid rgba(242,224,200,0.1); }
+  .footer-brand .logo { font-family: var(--heading); font-size: 24px; font-weight: 700; color: var(--arena); margin-bottom: 16px; }
+  .footer-brand .logo span { color: var(--caramelo); }
+  .footer-brand p { font-size: 14px; font-weight: 300; color: rgba(237,224,204,0.55); line-height: 1.7; max-width: 260px; }
+  .footer-phone { margin-top: 20px; font-family: var(--heading); font-size: 18px; color: var(--caramelo); text-decoration: none; display: block; }
+  .footer-col h4 { font-family: var(--body); font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--caramelo); margin-bottom: 20px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .footer-col ul li a { font-size: 14px; font-weight: 300; color: rgba(237,224,204,0.6); text-decoration: none; transition: color .2s; }
+  .footer-col ul li a:hover { color: var(--caramelo); }
+  .footer-bottom { max-width: 1200px; margin: 0 auto; padding-top: 28px; display: flex; justify-content: space-between; align-items: center; font-size: 12px; color: rgba(237,224,204,0.3); font-weight: 300; }
+  .footer-rating { display:flex; align-items:center; gap:8px; }
+  .footer-rating .stars { color: var(--caramelo); letter-spacing:2px; }
+  .footer-social { display:flex; gap:12px; margin-top:24px; }
+  .social-icon { width:40px; height:40px; border-radius:8px; border:1.5px solid rgba(242,224,200,0.2); background:transparent; display:flex; align-items:center; justify-content:center; text-decoration:none; transition: border-color .25s, background .25s, transform .2s; color: rgba(242,224,200,0.5); }
+  .social-icon svg { width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.6; }
+  .social-icon:hover { border-color:var(--caramelo); background:rgba(196,135,74,0.1); color:var(--caramelo); transform:translateY(-2px); }
+  .social-icon.yelp svg { fill:currentColor; stroke:none; }
+
+  /* ══ BACK TO TOP ══ */
+  .back-to-top { position: fixed; bottom: 32px; right: 32px; z-index: 200; width: 52px; height: 52px; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .35s, visibility .35s, transform .35s; transform: translateY(12px); cursor: pointer; }
+  .back-to-top.visible { opacity: 1; visibility: visible; pointer-events: auto; transform: translateY(0); }
+  .btt-svg { position: absolute; inset: 0; width: 100%; height: 100%; transform: rotate(-90deg); }
+  .btt-track { fill: none; stroke: rgba(196,135,74,0.2); stroke-width: 2.5; }
+  .btt-progress { fill: none; stroke: var(--caramelo); stroke-width: 2.5; stroke-linecap: round; stroke-dasharray: 138; stroke-dashoffset: 138; transition: stroke-dashoffset .1s linear; }
+  .btt-btn { position: absolute; inset: 6px; background: var(--carbon); border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(44,32,19,0.35); transition: background .25s, transform .2s; border: none; }
+  .back-to-top:hover .btt-btn { background: var(--caramelo); transform: scale(1.05); }
+  .btt-btn svg { width: 16px; height: 16px; stroke: var(--arena); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .back-to-top:hover .btt-btn svg { stroke: var(--marfil); }
+
+  /* ══ ANIMATIONS ══ */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(32px); } to { opacity:1; transform:translateY(0); } }
+
+  /* ══ RESPONSIVE ══ */
+  @media (max-width: 960px) {
+    nav { padding:0 24px; }
+    .nav-links { display:none; }
+    .nav-burger { display:flex; }
+    .page-hero { padding:120px 28px 60px; }
+    .contact-section { padding: 52px 28px; }
+    .contact-grid { grid-template-columns: 1fr; gap: 48px; }
+    .form-row { grid-template-columns: 1fr; }
+    .services-check-group { grid-template-columns: 1fr; }
+    .map-section { padding: 52px 28px; }
+    .cta-band { padding: 60px 28px; }
+    footer { padding: 48px 28px 24px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 36px; }
+    .footer-bottom { flex-direction: column; gap: 12px; text-align: center; }
+    .back-to-top { bottom: 20px; right: 20px; width: 46px; height: 46px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="home.html" class="nav-logo">Sola's <span>Carpentry</span></a>
+  <ul class="nav-links">
+    <li><a href="home.html#about">About</a></li>
+    <li class="nav-has-dropdown">
+      <a href="services.html">Services</a>
+      <div class="nav-dropdown">
+        <div class="nav-dropdown-inner">
+          <a href="services.html#cabinetry"><span class="dd-num">01</span>Custom Cabinetry</a>
+          <a href="services.html#remodeling"><span class="dd-num">02</span>Home Remodeling</a>
+          <a href="services.html#flooring"><span class="dd-num">03</span>Hardwood Flooring</a>
+          <a href="services.html#doors"><span class="dd-num">04</span>Doors &amp; Windows</a>
+          <a href="services.html#drywall"><span class="dd-num">05</span>Drywall &amp; Finishing</a>
+          <a href="services.html#commercial"><span class="dd-num">06</span>Commercial Projects</a>
+        </div>
+      </div>
+    </li>
+    <li><a href="home.html#testimonials">Reviews</a></li>
+    <li><a href="home.html#location">Location</a></li>
+    <li><a href="contact.html" class="active">Contact Us</a></li>
+    <li><a href="tel:+15106214468" class="nav-cta">Call Us</a></li>
+  </ul>
+  <div class="nav-burger" onclick="document.querySelector('.nav-mobile').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="nav-mobile">
+  <a href="home.html#about">About</a>
+  <a href="services.html">Services</a>
+  <a href="services.html#cabinetry" class="sub">↳ Custom Cabinetry</a>
+  <a href="services.html#remodeling" class="sub">↳ Home Remodeling</a>
+  <a href="services.html#flooring" class="sub">↳ Hardwood Flooring</a>
+  <a href="services.html#doors" class="sub">↳ Doors &amp; Windows</a>
+  <a href="services.html#drywall" class="sub">↳ Drywall &amp; Finishing</a>
+  <a href="services.html#commercial" class="sub">↳ Commercial Projects</a>
+  <a href="home.html#testimonials">Reviews</a>
+  <a href="home.html#location">Location</a>
+  <a href="contact.html" class="active">Contact Us</a>
+  <a href="tel:+15106214468" class="cta-mobile">Call (510) 621-4468</a>
+</div>
+
+<!-- PAGE HERO -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="home.html">Home</a><span>/</span>Contact Us
+    </div>
+    <h1>Let's talk about<br>your <em>next project.</em></h1>
+    <p>Free quotes, no pressure. Just tell us what you need and Noe will get back to you — usually the same day.</p>
+  </div>
+</div>
+
+<!-- ══ MAIN CONTACT SECTION ══ -->
+<section class="contact-section">
+  <div class="contact-grid">
+
+    <!-- ── LEFT: FORM ── -->
+    <div class="form-panel">
+      <div class="label-tag">
+        <span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>
+        Send a Message
+        <span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>
+      </div>
+      <h2>Tell us what<br>you're <em>working on.</em></h2>
+      <p>Fill in the form and we'll reach out to schedule a free on-site quote. All fields marked with <span style="color:var(--caramelo)">*</span> are required.</p>
+
+      <!-- FORM -->
+      <form id="contactForm" novalidate>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Full Name <span class="required-star">*</span></label>
+            <input type="text" name="name" id="fname" placeholder="John Smith" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label>Phone Number <span class="required-star">*</span></label>
+            <input type="tel" name="phone" id="fphone" placeholder="(510) 000-0000" required autocomplete="tel">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" name="email" id="femail" placeholder="your@email.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label>How did you hear about us?</label>
+            <select name="source" id="fsource">
+              <option value="" disabled selected>Select an option</option>
+              <option>Google Search</option>
+              <option>Google Maps</option>
+              <option>Yelp</option>
+              <option>Facebook / Instagram</option>
+              <option>Referral from a friend</option>
+              <option>Nextdoor</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Service(s) Needed <span class="required-star">*</span></label>
+          <div class="services-check-group" id="servicesGroup">
+            <label class="check-item">
+              <input type="checkbox" name="services" value="Custom Cabinetry">
+              <span class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Custom Cabinetry
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="services" value="Home Remodeling">
+              <span class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Home Remodeling
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="services" value="Hardwood Flooring">
+              <span class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Hardwood Flooring
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="services" value="Doors & Windows">
+              <span class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Doors &amp; Windows
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="services" value="Drywall & Finishing">
+              <span class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Drywall &amp; Finishing
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="services" value="Commercial">
+              <span class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Commercial Project
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="services" value="Not sure yet">
+              <span class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Not sure yet
+            </label>
+            <label class="check-item">
+              <input type="checkbox" name="services" value="Other">
+              <span class="check-box"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></span>
+              Other
+            </label>
+          </div>
+        </div>
+
+        <div class="form-group" style="margin-top:8px;">
+          <label>Project Description <span style="opacity:.5;font-weight:400;text-transform:none;letter-spacing:0;">(optional)</span></label>
+          <textarea name="message" id="fmessage" placeholder="Briefly describe your project — size, timeline, any details you'd like us to know ahead of the visit..."></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <svg viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Send Message
+        </button>
+      </form>
+
+      <!-- Success state (hidden by default) -->
+      <div class="form-success" id="formSuccess">
+        <div class="success-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <h3>Message sent!</h3>
+        <p>Thanks for reaching out. Noe will review your request and get back to you — usually within a few hours.</p>
+      </div>
+    </div>
+
+    <!-- ── RIGHT: INFO ── -->
+    <div class="info-panel">
+
+      <!-- Call CTA card -->
+      <div class="call-card">
+        <div class="label-tag">
+          <span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>
+          Prefer to call?
+          <span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#C4874A"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#C4874A" opacity="0.3"/></svg></span>
+        </div>
+        <h3>Noe picks up.<br>Give him a call.</h3>
+        <p>No automated systems, no hold music. Call or text directly and get a real answer about your project.</p>
+        <a href="tel:+15106214468" class="btn-call">
+          <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.14 13.5 19.79 19.79 0 0 1 1.06 4.9 2 2 0 0 1 3 2.9h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.09 10.9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (510) 621-4468
+        </a>
+        <div class="response-badge">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Typical response time: <strong>same day</strong></span>
+        </div>
+      </div>
+
+      <!-- Info cards -->
+      <div class="info-cards">
+
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div class="info-text">
+            <div class="info-label">Address</div>
+            <div class="info-val">1936 Lincoln Ave<br>Richmond, CA 94801</div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div class="info-text">
+            <div class="info-label">Business Hours</div>
+            <div class="info-val">
+              <div class="hours-table">
+                <div class="hours-row"><span class="day">Mon – Sat</span><span>7:00 AM – 7:00 PM</span></div>
+                <div class="hours-row"><span class="day">Sunday</span><span class="closed">Closed</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div class="info-text">
+            <div class="info-label">Service Area</div>
+            <div class="info-val" style="font-size:14px;font-family:var(--body);font-weight:300;line-height:1.6;color:#7a6652;">
+              Richmond · Berkeley · Oakland<br>El Cerrito · Albany · Hercules<br>Walnut Creek · Concord · San Francisco
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <div class="info-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div class="info-text">
+            <div class="info-label">Licensed &amp; Insured</div>
+            <div class="info-val" style="font-size:14px;font-family:var(--body);font-weight:300;line-height:1.6;color:#7a6652;">
+              Fully insured for residential &amp; commercial work in California. Free on-site estimates included.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ MAP SECTION ══ -->
+<div class="map-section">
+  <div class="map-inner">
+    <div class="label-tag" style="color:var(--roble);">
+      <span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#8B5E3C"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#8B5E3C" opacity="0.3"/></svg></span>
+      Find Us
+      <span class="saw-icon"><svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="3.5" fill="#8B5E3C"/><path d="M12 1.5L13.8 5.8L17.2 3L16.5 7.8L21 6.5L18.5 10.5L23 12L18.5 13.5L21 17.5L16.5 16.2L17.2 21L13.8 18.2L12 22.5L10.2 18.2L6.8 21L7.5 16.2L3 17.5L5.5 13.5L1 12L5.5 10.5L3 6.5L7.5 7.8L6.8 3L10.2 5.8Z" fill="#8B5E3C" opacity="0.3"/></svg></span>
+    </div>
+    <h2>1936 Lincoln Ave,<br><em>Richmond, CA 94801.</em></h2>
+    <div class="map-wrap">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5702.742019282766!2d-122.3503176!3d37.945834399999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085776c52707873%3A0x884392b96a75ef4b!2sSOLA&#39;S%20CARPENTRY!5e1!3m2!1ses-419!2sus!4v1776898938264!5m2!1ses-419!2sus"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Sola's Carpentry – 1936 Lincoln Ave, Richmond CA">
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<!-- CTA BAND -->
+<div class="cta-band">
+  <h2>Ready to get started?</h2>
+  <p>Free quotes, honest pricing, and Bay Area craftsmanship you can count on.</p>
+  <div class="cta-btns">
+    <a href="tel:+15106214468" class="btn-light">Call (510) 621-4468</a>
+    <a href="services.html" class="btn-outline">View Our Services</a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo">Sola's <span>Carpentry</span></div>
+      <p>Quality carpentry and remodeling services for homes and businesses across Richmond and the Bay Area.</p>
+      <a href="tel:+15106214468" class="footer-phone">(510) 621-4468</a>
+      <div class="footer-social">
+        <a href="#" class="social-icon" title="Facebook" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a>
+        <a href="#" class="social-icon" title="Instagram" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none"/></svg></a>
+        <a href="#" class="social-icon" title="LinkedIn" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a href="https://www.yelp.com/biz/solas-carpentry-richmond" class="social-icon yelp" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12.17 2C9.29 2 7 4.26 7 7.12c0 1.63.73 3.08 1.88 4.06L5.1 15.35c-.41.68-.15 1.55.56 1.93l.1.05c.71.35 1.57.07 1.96-.62l3.64-6.2c.27.05.55.08.84.08 2.88 0 5.17-2.26 5.17-5.12S15.05 2 12.17 2zm-5.3 14.3l-.02.03c-.58.97-.24 2.22.77 2.78l.1.06c1 .56 2.28.24 2.87-.73l1.62-2.76c-.48-.06-.94-.19-1.37-.38l-3.97.99zM16.5 13.8c-.4-.07-.82-.05-1.22.09l-2.2 3.75c.1.43.13.88.08 1.34l2.2-3.75c.4-.68 1.27-.92 1.97-.54l.1.06c.7.41.94 1.3.54 2l-2.25 3.84c.45-.15.85-.43 1.12-.84l2.25-3.84c.82-1.4.34-3.2-1.07-4.01l-.1-.06c-.47-.27-.98-.37-1.48-.31l.06-.73z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html#cabinetry">Custom Cabinetry</a></li>
+        <li><a href="services.html#remodeling">Home Remodeling</a></li>
+        <li><a href="services.html#flooring">Hardwood Flooring</a></li>
+        <li><a href="services.html#doors">Doors &amp; Windows</a></li>
+        <li><a href="services.html#drywall">Drywall &amp; Finishing</a></li>
+        <li><a href="services.html#commercial">Commercial Projects</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="home.html">Home</a></li>
+        <li><a href="home.html#about">About Noe</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="home.html#testimonials">Reviews</a></li>
+        <li><a href="home.html#location">Location</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 <a href="https://www.vanersity.com/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C4874A'" onmouseout="this.style.color='inherit'">Vanersity Tech Inc</a> · All rights reserved.</span>
+    <div class="footer-rating">
+      <span class="stars">★★★★★</span>
+      <a href="https://www.google.com/maps/place/SOLA'S+CARPENTRY/@37.9458344,-122.3503176,15z/" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;transition:color .2s;" onmouseover="this.style.color='#C4874A'" onmouseout="this.style.color='inherit'">5.0 on Google Reviews</a>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<div class="back-to-top" id="backToTop" role="button" aria-label="Back to top" tabindex="0">
+  <svg class="btt-svg" viewBox="0 0 52 52">
+    <circle class="btt-track" cx="26" cy="26" r="22"/>
+    <circle class="btt-progress" id="bttProgress" cx="26" cy="26" r="22"/>
+  </svg>
+  <div class="btt-btn">
+    <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+  </div>
+</div>
+
+<script>
+// ── CHECKBOX TOGGLE ─────────────────────────────
+document.querySelectorAll('.check-item input[type="checkbox"]').forEach(function(cb) {
+  cb.addEventListener('change', function() {
+    this.closest('.check-item').classList.toggle('checked', this.checked);
+  });
+});
+
+// ── FORM SUBMIT ─────────────────────────────────
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  const name  = document.getElementById('fname').value.trim();
+  const phone = document.getElementById('fphone').value.trim();
+  const checked = document.querySelectorAll('#servicesGroup input[type="checkbox"]:checked');
+
+  // Basic validation
+  let valid = true;
+  ['fname','fphone'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el.value.trim()) {
+      el.style.borderColor = '#C4874A';
+      el.style.boxShadow = '0 0 0 3px rgba(196,135,74,0.18)';
+      valid = false;
+    } else {
+      el.style.borderColor = '';
+      el.style.boxShadow = '';
+    }
+  });
+  if (checked.length === 0) {
+    document.getElementById('servicesGroup').style.outline = '2px solid rgba(196,135,74,0.4)';
+    document.getElementById('servicesGroup').style.borderRadius = '4px';
+    valid = false;
+  } else {
+    document.getElementById('servicesGroup').style.outline = '';
+  }
+
+  if (!valid) return;
+
+  // Show success
+  document.getElementById('contactForm').style.display = 'none';
+  document.getElementById('formSuccess').classList.add('visible');
+  document.querySelector('.form-panel h2').style.display = 'none';
+  document.querySelector('.form-panel > p').style.display = 'none';
+});
+
+// Clear validation highlight on input
+['fname','fphone'].forEach(id => {
+  document.getElementById(id)?.addEventListener('input', function() {
+    this.style.borderColor = '';
+    this.style.boxShadow = '';
+  });
+});
+
+// ── BACK TO TOP ─────────────────────────────────
+(function() {
+  const btn = document.getElementById('backToTop');
+  const prog = document.getElementById('bttProgress');
+  const C = 2 * Math.PI * 22;
+  function upd() {
+    const s = window.scrollY || document.documentElement.scrollTop;
+    const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    prog.style.strokeDashoffset = C * (1 - Math.min(s/h, 1));
+    btn.classList.toggle('visible', s > 200);
+  }
+  window.addEventListener('scroll', upd, { passive: true });
+  upd();
+  btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  btn.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }});
+})();
+
+// ── MOBILE NAV ───────────────────────────────────
+document.querySelector('.nav-burger')?.addEventListener('click', function() {
+  document.querySelector('.nav-mobile').classList.toggle('open');
+});
+</script>
+</body>
+</html>

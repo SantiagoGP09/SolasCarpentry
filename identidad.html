@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identidad Visual – Carpintería</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --roble:      #8B5E3C;
+    --caramelo:   #C4874A;
+    --arena:      #F2E0C8;
+    --marfil:     #FAF6F0;
+    --carbon:     #2C2013;
+    --musgo:      #6B7355;
+    --crema:      #EDE0CC;
+
+    --heading: 'Playfair Display', Georgia, serif;
+    --body:    'Lato', sans-serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--marfil);
+    font-family: var(--body);
+    color: var(--carbon);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--carbon);
+    padding: 64px 48px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 18px,
+      rgba(196,135,74,.06) 18px,
+      rgba(196,135,74,.06) 19px
+    );
+  }
+  .hero-label {
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--caramelo);
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: var(--heading);
+    font-size: clamp(38px, 6vw, 72px);
+    font-weight: 700;
+    color: var(--arena);
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero h1 span { color: var(--caramelo); }
+  .hero p {
+    font-family: var(--body);
+    font-size: 17px;
+    font-weight: 300;
+    color: var(--crema);
+    max-width: 480px;
+    margin: 0 auto 32px;
+    line-height: 1.7;
+  }
+  .hero-btn {
+    display: inline-block;
+    background: var(--caramelo);
+    color: var(--marfil);
+    font-family: var(--body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 14px 36px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: background .25s;
+  }
+  .hero-btn:hover { background: var(--roble); }
+
+  /* ── SECTION WRAPPER ── */
+  .section { padding: 56px 40px; max-width: 900px; margin: 0 auto; }
+  .section-title {
+    font-family: var(--heading);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--caramelo);
+    margin-bottom: 32px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--crema);
+  }
+
+  /* ── PALETA ── */
+  .palette-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px;
+  }
+  .swatch {
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(44,32,19,.10);
+    transition: transform .2s;
+  }
+  .swatch:hover { transform: translateY(-4px); }
+  .swatch-color {
+    height: 90px;
+  }
+  .swatch-info {
+    background: white;
+    padding: 10px 12px;
+  }
+  .swatch-name {
+    font-family: var(--heading);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--carbon);
+    display: block;
+    margin-bottom: 2px;
+  }
+  .swatch-hex {
+    font-family: var(--body);
+    font-size: 11px;
+    color: #999;
+    letter-spacing: 1px;
+  }
+  .swatch-role {
+    font-family: var(--body);
+    font-size: 10px;
+    color: var(--musgo);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  /* ── TIPOGRAFÍA ── */
+  .typo-section { background: var(--crema); border-radius: 12px; padding: 40px; }
+  .font-block + .font-block { margin-top: 36px; padding-top: 36px; border-top: 1px solid var(--arena); }
+
+  .font-tag {
+    display: inline-block;
+    background: var(--caramelo);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    margin-bottom: 14px;
+  }
+  .font-display {
+    font-family: var(--heading);
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--carbon);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .font-name {
+    font-family: var(--body);
+    font-size: 12px;
+    color: var(--musgo);
+    letter-spacing: 1px;
+    margin-bottom: 16px;
+  }
+  .font-sample-body {
+    font-family: var(--body);
+    font-size: 16px;
+    color: var(--carbon);
+    line-height: 1.75;
+    max-width: 480px;
+  }
+  .font-weights {
+    display: flex;
+    gap: 24px;
+    margin-top: 20px;
+    flex-wrap: wrap;
+  }
+  .weight-item {
+    font-family: var(--body);
+    color: var(--carbon);
+  }
+  .weight-item.light { font-weight: 300; }
+  .weight-item.regular { font-weight: 400; }
+  .weight-item.bold { font-weight: 700; }
+
+  /* ── COMBINACIONES ── */
+  .combo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .combo-card {
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 16px rgba(44,32,19,.10);
+  }
+  .combo-card-body {
+    padding: 28px 24px;
+  }
+  .combo-card h3 {
+    font-family: var(--heading);
+    font-size: 22px;
+    margin-bottom: 8px;
+  }
+  .combo-card p {
+    font-family: var(--body);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+  .combo-card .tag-line {
+    font-family: var(--body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    opacity: .7;
+  }
+  .combo-btn {
+    display: inline-block;
+    font-family: var(--body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 18px;
+    border-radius: 2px;
+    margin-top: 16px;
+    cursor: pointer;
+  }
+
+  /* card 1 */
+  .c1 { background: var(--carbon); }
+  .c1 .tag-line { color: var(--caramelo); }
+  .c1 h3 { color: var(--arena); }
+  .c1 p { color: var(--crema); }
+  .c1 .combo-btn { background: var(--caramelo); color: white; }
+
+  /* card 2 */
+  .c2 { background: var(--arena); }
+  .c2 .tag-line { color: var(--roble); }
+  .c2 h3 { color: var(--carbon); }
+  .c2 p { color: var(--roble); }
+  .c2 .combo-btn { background: var(--carbon); color: var(--arena); }
+
+  /* card 3 */
+  .c3 { background: var(--roble); }
+  .c3 .tag-line { color: var(--arena); }
+  .c3 h3 { color: var(--marfil); }
+  .c3 p { color: var(--crema); }
+  .c3 .combo-btn { background: var(--caramelo); color: white; }
+
+  /* card 4 */
+  .c4 { background: var(--marfil); border: 1px solid var(--crema); }
+  .c4 .tag-line { color: var(--musgo); }
+  .c4 h3 { color: var(--carbon); }
+  .c4 p { color: #7a6652; }
+  .c4 .combo-btn { background: var(--caramelo); color: white; }
+
+  /* ── FOOTER ── */
+  .footer-note {
+    text-align: center;
+    padding: 40px;
+    font-family: var(--body);
+    font-size: 12px;
+    color: #bbb;
+    letter-spacing: 1px;
+    border-top: 1px solid var(--crema);
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO PREVIEW -->
+<div class="hero">
+  <div class="hero-label">Identidad Visual · Carpintería</div>
+  <h1>Hecho a mano,<br><span>hecho para durar</span></h1>
+  <p>Muebles y piezas en madera elaborados con oficio, cuidado y pasión por el detalle.</p>
+  <a href="#" class="hero-btn">Ver nuestros trabajos</a>
+</div>
+
+<!-- PALETA -->
+<div class="section">
+  <div class="section-title">Paleta de colores</div>
+  <div class="palette-grid">
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#2C2013;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name">Carbón</span>
+        <div class="swatch-hex">#2C2013</div>
+        <div class="swatch-role">Textos principales · Fondos oscuros</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#8B5E3C;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name">Roble</span>
+        <div class="swatch-hex">#8B5E3C</div>
+        <div class="swatch-role">Color de marca principal</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#C4874A;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name">Caramelo</span>
+        <div class="swatch-hex">#C4874A</div>
+        <div class="swatch-role">Acento · Botones · Detalles</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#F2E0C8;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name">Arena</span>
+        <div class="swatch-hex">#F2E0C8</div>
+        <div class="swatch-role">Fondos secundarios · Secciones</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#FAF6F0;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name">Marfil</span>
+        <div class="swatch-hex">#FAF6F0</div>
+        <div class="swatch-role">Fondo general de la página</div>
+      </div>
+    </div>
+
+    <div class="swatch">
+      <div class="swatch-color" style="background:#6B7355;"></div>
+      <div class="swatch-info">
+        <span class="swatch-name">Musgo</span>
+        <div class="swatch-hex">#6B7355</div>
+        <div class="swatch-role">Acento natural · Etiquetas</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- TIPOGRAFÍA -->
+<div class="section" style="padding-top:0">
+  <div class="section-title">Tipografía</div>
+  <div class="typo-section">
+
+    <div class="font-block">
+      <span class="font-tag">Títulos y encabezados</span>
+      <div class="font-display">Playfair Display</div>
+      <div class="font-name">Playfair Display — Serif elegante · Google Fonts (gratuita)</div>
+      <p style="font-family:'Playfair Display',serif; font-size:22px; color:#2C2013; line-height:1.4; font-weight:400">
+        "Cada pieza cuenta una historia<br>que empieza en la madera."
+      </p>
+    </div>
+
+    <div class="font-block">
+      <span class="font-tag">Cuerpo de texto y navegación</span>
+      <div style="font-family:'Lato',sans-serif; font-size:38px; font-weight:700; color:#2C2013; margin-bottom:8px;">Lato</div>
+      <div class="font-name">Lato — Sans-serif amigable · Google Fonts (gratuita)</div>
+      <p class="font-sample-body">
+        Trabajamos la madera con técnicas tradicionales y herramientas modernas. 
+        Cada mueble es diseñado a medida para adaptarse al espacio y estilo de vida 
+        de nuestros clientes.
+      </p>
+      <div class="font-weights">
+        <span class="weight-item light">300 — Light: texto secundario</span>
+        <span class="weight-item regular">400 — Regular: cuerpo</span>
+        <span class="weight-item bold">700 — Bold: botones y etiquetas</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMBINACIONES -->
+<div class="section" style="padding-top:0">
+  <div class="section-title">Combinaciones de color</div>
+  <div class="combo-grid">
+
+    <div class="combo-card c1">
+      <div class="combo-card-body">
+        <div class="tag-line">Sección destacada</div>
+        <h3>Carpintería artesanal</h3>
+        <p>Fondos oscuros con acentos en caramelo para secciones hero o llamadas a la acción.</p>
+        <div class="combo-btn">Contáctanos</div>
+      </div>
+    </div>
+
+    <div class="combo-card c2">
+      <div class="combo-card-body">
+        <div class="tag-line">Sección de servicios</div>
+        <h3>Nuestros trabajos</h3>
+        <p>Fondo arena con textos en carbón. Cálido, limpio y muy legible.</p>
+        <div class="combo-btn">Ver galería</div>
+      </div>
+    </div>
+
+    <div class="combo-card c3">
+      <div class="combo-card-body">
+        <div class="tag-line">Banner o CTA</div>
+        <h3>Solicita tu presupuesto</h3>
+        <p>Fondo roble para bloques de acción. Transmite calidez y solidez.</p>
+        <div class="combo-btn">Pedir cotización</div>
+      </div>
+    </div>
+
+    <div class="combo-card c4">
+      <div class="combo-card-body">
+        <div class="tag-line">Fondo general</div>
+        <h3>Sobre nosotros</h3>
+        <p>Fondo marfil con tipografía oscura para secciones de texto largo. Muy legible.</p>
+        <div class="combo-btn">Leer más</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="footer-note">
+  Identidad Visual · Paso 1 de N · Para WordPress con GoDaddy
+</div>
+
+</body>
+</html>
